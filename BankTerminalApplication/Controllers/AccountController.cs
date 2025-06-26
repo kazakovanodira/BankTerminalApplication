@@ -36,7 +36,10 @@ public class AccountController
 
     public bool TryWithdraw(decimal amount)
     {
-        if (_account == null || amount < 0 || _account.Balance < amount) return false;
+        if (_account == null || amount < 0 || _account.Balance < amount)
+        {
+            return false;
+        }
         _account.Balance -= amount;
         
         return true;
@@ -46,7 +49,10 @@ public class AccountController
     {
         Account? sender = _bankController.GetAccount(senderAccNum);
         Account? receiver = _bankController.GetAccount(receiverAccNum);
-        if (sender == null || receiver == null || amount <= 0 || sender.Balance < amount) return false;
+        if (sender == null || receiver == null || amount <= 0 || sender.Balance < amount)
+        {
+            return false;
+        }
         sender.Balance -= amount;
         receiver.Balance += amount;
             

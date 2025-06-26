@@ -17,10 +17,10 @@ public class AccountView
     
     public void AttemptDeposit()
     {
-        if (_inputManager.TryGetAccountNumber("your", out Guid id))
+        if (_inputManager.TryGetAccountNumber("your", out var id))
         {
-            Guid accountNumber = id;
-            AccountController currentAccController = new AccountController(accountNumber);
+            var accountNumber = id;
+            var currentAccController = new AccountController(accountNumber);
             
             if (!currentAccController.IsValidAccount())
             {
@@ -28,7 +28,7 @@ public class AccountView
                 return;
             }
         
-            decimal depositAmount = _inputManager.GetAmount();
+            var depositAmount = _inputManager.GetAmount();
 
             if (depositAmount == 0)
             {
@@ -67,10 +67,10 @@ public class AccountView
 
     public void AttemptWithdraw()
     {
-        if (_inputManager.TryGetAccountNumber("your", out Guid id))
+        if (_inputManager.TryGetAccountNumber("your", out var id))
         {
-            Guid accountNumber = id;
-            AccountController currentAccController = new AccountController(accountNumber);
+            var accountNumber = id;
+            var currentAccController = new AccountController(accountNumber);
             
             if (!currentAccController.IsValidAccount())
             {
@@ -78,7 +78,7 @@ public class AccountView
                 return;
             }
         
-            decimal withdrawAmount = _inputManager.GetAmount();
+            var withdrawAmount = _inputManager.GetAmount();
         
             if (withdrawAmount == 0)
             {
@@ -117,10 +117,10 @@ public class AccountView
 
     public void AttemptTransfer()
     {
-        if (_inputManager.TryGetAccountNumber("sender's", out Guid senderID))
+        if (_inputManager.TryGetAccountNumber("sender's", out var senderID))
         {
-            Guid senderAccNum = senderID;
-            AccountController senderAccController = new AccountController(senderAccNum);
+            var senderAccNum = senderID;
+            var senderAccController = new AccountController(senderAccNum);
 
             if (!senderAccController.IsValidAccount())
             {
@@ -128,10 +128,10 @@ public class AccountView
                 return;
             }
 
-            if (_inputManager.TryGetAccountNumber("receiver's", out Guid receiverID))
+            if (_inputManager.TryGetAccountNumber("receiver's", out var receiverID))
             {
-                Guid receiverAccNum = receiverID;
-                AccountController reveiverAccController = new AccountController(senderAccNum);
+                var receiverAccNum = receiverID;
+                var reveiverAccController = new AccountController(senderAccNum);
 
                 if (!reveiverAccController.IsValidAccount())
                 {
@@ -144,7 +144,7 @@ public class AccountView
                     Console.WriteLine("Invalid transaction.");
                     return;
                 }
-                decimal amount = _inputManager.GetAmount();
+                var amount = _inputManager.GetAmount();
         
                 if (amount == 0)
                 {
@@ -186,10 +186,10 @@ public class AccountView
 
     public void DisplayBalance()
     {
-        if (_inputManager.TryGetAccountNumber("your", out Guid id))
+        if (_inputManager.TryGetAccountNumber("your", out var id))
         {
-            Guid accountNumber = id;
-            AccountController currentAccController = new AccountController(accountNumber);
+            var accountNumber = id;
+            var currentAccController = new AccountController(accountNumber);
         
             if (!currentAccController.IsValidAccount())
             {

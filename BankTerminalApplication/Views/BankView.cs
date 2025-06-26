@@ -8,7 +8,7 @@ public class BankView
 
     public void CreateAccount()
     {
-        Guid accNum = BankController.Instance.CreateNewAccount(_inputManager.GetName());
+        var accNum = BankController.Instance.CreateNewAccount(_inputManager.GetName());
         Console.WriteLine($"Account was created successfully.");
         Console.WriteLine($"Your account number is: {accNum}");
     }

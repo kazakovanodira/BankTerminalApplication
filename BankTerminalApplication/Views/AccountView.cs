@@ -6,7 +6,7 @@ namespace BankTerminalApplication.Views;
 public class AccountView
 {
     private readonly InputManager _inputManager = new();
-    
+
     public char PickTransaction()
     {
         Console.WriteLine("Menu:\n     a. Create Account\n     b. Deposit\n     c. Withdraw\n     d. Check Balance\n     e. Transfer Funds\n     f. Exit\n \n"); 
@@ -17,7 +17,7 @@ public class AccountView
     
     public void AttemptDeposit()
     {
-        if (_inputManager.TryGetAccountNumber("your", out var id))
+        if (_inputManager.TryGetAccountNumber((accountOwner)0, out var id))
         {
             var accountNumber = id;
             var currentAccController = new AccountController(accountNumber);
@@ -61,7 +61,7 @@ public class AccountView
 
     public void AttemptWithdraw()
     {
-        if (_inputManager.TryGetAccountNumber("your", out var id))
+        if (_inputManager.TryGetAccountNumber((accountOwner)0, out var id))
         {
             var accountNumber = id;
             var currentAccController = new AccountController(accountNumber);
@@ -105,7 +105,7 @@ public class AccountView
     
     public void AttemptTransfer()
     {
-        if (_inputManager.TryGetAccountNumber("sender's", out var senderID))
+        if (_inputManager.TryGetAccountNumber((accountOwner)1, out var senderID))
         {
             var senderAccNum = senderID;
             var senderAccController = new AccountController(senderAccNum);
@@ -116,7 +116,7 @@ public class AccountView
                 return;
             }
 
-            if (_inputManager.TryGetAccountNumber("receiver's", out var receiverID))
+            if (_inputManager.TryGetAccountNumber((accountOwner)2, out var receiverID))
             {
                 var receiverAccNum = receiverID;
                 var reveiverAccController = new AccountController(senderAccNum);
@@ -168,7 +168,7 @@ public class AccountView
 
     public void DisplayBalance()
     {
-        if (_inputManager.TryGetAccountNumber("your", out var id))
+        if (_inputManager.TryGetAccountNumber((accountOwner)0, out var id))
         {
             var accountNumber = id;
             var currentAccController = new AccountController(accountNumber);

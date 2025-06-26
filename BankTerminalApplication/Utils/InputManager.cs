@@ -1,4 +1,15 @@
-namespace BankTerminalApplication;
+using BankTerminalApplication;
+using BankTerminalApplication.Views;
+
+namespace BankTerminalApplication
+{
+    public enum accountOwner
+    {
+        Your,
+        Sender,
+        Receiver
+    };
+}
 
 public class InputManager
 {
@@ -34,7 +45,7 @@ public class InputManager
         }
     }
 
-    public bool TryGetAccountNumber(string owner, out Guid accountNumber)
+    public bool TryGetAccountNumber(accountOwner owner, out Guid accountNumber)
     {
         Console.WriteLine($"Enter {owner} account number: ");
         var input = Console.ReadLine();

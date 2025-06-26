@@ -43,7 +43,7 @@ public class AccountController
     {
         var sender = _bankController.GetAccount(senderAccNum);
         var receiver = _bankController.GetAccount(receiverAccNum);
-        if (sender is null || receiver == null || amount <= 0 || sender.Balance < amount)
+        if (sender is null || receiver is null || amount <= 0 || sender.Balance < amount)
         {
             return false;
         }

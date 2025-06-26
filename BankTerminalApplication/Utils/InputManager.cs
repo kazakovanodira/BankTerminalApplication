@@ -1,15 +1,7 @@
 using BankTerminalApplication;
 using BankTerminalApplication.Views;
 
-namespace BankTerminalApplication
-{
-    public enum AccountOwner
-    {
-        Your,
-        Sender,
-        Receiver
-    };
-}
+namespace BankTerminalApplication.Utils;
 
 public class InputManager
 {

@@ -2,6 +2,14 @@
 
 namespace BankTerminalApplication;
 
+public enum AccountOwner
+{
+    Your,
+    Sender,
+    Receiver
+};
+
+
 class Program
 {
     public static void Main(String[] args)

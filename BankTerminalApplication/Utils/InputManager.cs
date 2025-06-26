@@ -3,7 +3,7 @@ using BankTerminalApplication.Views;
 
 namespace BankTerminalApplication
 {
-    public enum accountOwner
+    public enum AccountOwner
     {
         Your,
         Sender,
@@ -45,7 +45,7 @@ public class InputManager
         }
     }
 
-    public bool TryGetAccountNumber(accountOwner owner, out Guid accountNumber)
+    public bool TryGetAccountNumber(AccountOwner owner, out Guid accountNumber)
     {
         Console.WriteLine($"Enter {owner} account number: ");
         var input = Console.ReadLine();

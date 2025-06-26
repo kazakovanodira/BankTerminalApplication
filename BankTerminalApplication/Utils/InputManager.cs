@@ -1,6 +1,6 @@
 namespace BankTerminalApplication;
 
-public class UserInputController
+public class InputManager
 {
     public decimal GetAmount()
     {

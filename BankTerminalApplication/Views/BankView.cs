@@ -4,11 +4,11 @@ namespace BankTerminalApplication.Views;
 
 public class BankView
 {
-    UserInputController _userInputController = new();
+    InputManager _inputManager = new();
 
     public void CreateAccount()
     {
-        Guid accNum = BankController.Instance.CreateNewAccount(_userInputController.GetName());
+        Guid accNum = BankController.Instance.CreateNewAccount(_inputManager.GetName());
         Console.WriteLine($"Account was created successfully.");
         Console.WriteLine($"Your account number is: {accNum}");
     }

@@ -13,19 +13,13 @@ public class AccountController
         _account = _bankController.GetAccount(id);
     }
     
-    public bool IsValidAccount()
-    {
-        return _account != null;
-    }
+    public bool IsValidAccount() => _account is not null;
 
-    public decimal GetBalance()
-    {
-        return _account?.Balance ?? 0;
-    }
+    public decimal GetBalance() => _account?.Balance ?? 0;
 
     public bool TryDeposit(decimal amount)
     {
-        if (_account == null || amount < 0)
+        if (_account is null || amount < 0)
         {
             return false;
         }
@@ -36,7 +30,7 @@ public class AccountController
 
     public bool TryWithdraw(decimal amount)
     {
-        if (_account == null || amount < 0 || _account.Balance < amount)
+        if (_account is null || amount < 0 || _account.Balance < amount)
         {
             return false;
         }
@@ -49,7 +43,7 @@ public class AccountController
     {
         var sender = _bankController.GetAccount(senderAccNum);
         var receiver = _bankController.GetAccount(receiverAccNum);
-        if (sender == null || receiver == null || amount <= 0 || sender.Balance < amount)
+        if (sender is null || receiver == null || amount <= 0 || sender.Balance < amount)
         {
             return false;
         }

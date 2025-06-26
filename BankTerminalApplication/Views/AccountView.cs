@@ -30,7 +30,7 @@ public class AccountView
         
             var depositAmount = _inputManager.GetAmount();
 
-            if (depositAmount == 0)
+            if (depositAmount is 0)
             {
                 Console.WriteLine("Transaction cancelled.");
                 Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
@@ -55,15 +55,9 @@ public class AccountView
         }
     }
 
-    public void DepositSuccess()
-    {
-        Console.WriteLine("Money successfully deposited.");
-    }
-
-    public void DepositFail()
-    {
-        Console.WriteLine("Money failed to deposit.");
-    }
+    public void DepositSuccess() => Console.WriteLine("Money successfully deposited.");
+    
+    public void DepositFail() => Console.WriteLine("Money failed to deposit.");
 
     public void AttemptWithdraw()
     {
@@ -80,7 +74,7 @@ public class AccountView
         
             var withdrawAmount = _inputManager.GetAmount();
         
-            if (withdrawAmount == 0)
+            if (withdrawAmount is 0)
             {
                 Console.WriteLine("Transaction cancelled.");
                 Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
@@ -105,16 +99,10 @@ public class AccountView
         }
     }
 
-    public void WithdrawSuccess()
-    {
-        Console.WriteLine("Money successfully withdrawn.");
-    }
+    public void WithdrawSuccess() => Console.WriteLine("Money successfully withdrawn.");
 
-    public void WithdrawFail()
-    {
-        Console.WriteLine("Money failed to withdraw.");
-    }
-
+    public void WithdrawFail() => Console.WriteLine("Money failed to withdraw.");
+    
     public void AttemptTransfer()
     {
         if (_inputManager.TryGetAccountNumber("sender's", out var senderID))
@@ -146,7 +134,7 @@ public class AccountView
                 }
                 var amount = _inputManager.GetAmount();
         
-                if (amount == 0)
+                if (amount is 0)
                 {
                     Console.WriteLine("Transaction cancelled.");
 
@@ -174,15 +162,9 @@ public class AccountView
         }
     }
 
-    public void TransferSuccess()
-    {
-        Console.WriteLine("Money transferred successfully.");
-    }
+    public void TransferSuccess() => Console.WriteLine("Money transferred successfully.");
 
-    public void TransferFail()
-    {
-        Console.WriteLine("Money failed to transfer.");
-    }
+    public void TransferFail() => Console.WriteLine("Money failed to transfer.");
 
     public void DisplayBalance()
     {

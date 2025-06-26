@@ -5,7 +5,7 @@ namespace BankTerminalApplication.Controllers;
 
 public class BankController: Singleton<BankController>
 {
-    private Bank _bank =  new();
+    private readonly Bank _bank =  new();
 
     public BankController() { }
 

@@ -4,7 +4,7 @@ namespace BankTerminalApplication.Views;
 
 public class BankView
 {
-    InputManager _inputManager = new();
+    private readonly InputManager _inputManager = new();
 
     public void CreateAccount()
     {

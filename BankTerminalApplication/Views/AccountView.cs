@@ -5,7 +5,7 @@ namespace BankTerminalApplication.Views;
 
 public class AccountView
 {
-    InputManager _inputManager = new();
+    private readonly InputManager _inputManager = new();
     
     public char PickTransaction()
     {

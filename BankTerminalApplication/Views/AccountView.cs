@@ -17,34 +17,41 @@ public class AccountView
     
     public void AttemptDeposit()
     {
-        Guid accountNumber = _userInputController.GetAccountNumber("your");
-        AccountController currentAccController = new AccountController(accountNumber);
-
-        if (!currentAccController.IsValidAccount())
+        if (_userInputController.TryGetAccountNumber("your", out Guid id))
         {
-            Console.WriteLine("Invalid account number");
-            return;
-        }
+            Guid accountNumber = id;
+            AccountController currentAccController = new AccountController(accountNumber);
+            
+            if (!currentAccController.IsValidAccount())
+            {
+                Console.WriteLine("Invalid account number");
+                return;
+            }
         
-        decimal depositAmount = _userInputController.GetAmount();
+            decimal depositAmount = _userInputController.GetAmount();
 
-        if (depositAmount == 0)
-        {
-            Console.WriteLine("Transaction cancelled.");
-            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            if (depositAmount == 0)
+            {
+                Console.WriteLine("Transaction cancelled.");
+                Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
 
-            return;
-        }
+                return;
+            }
         
-        if (currentAccController.TryDeposit(depositAmount))
-        {
-            DepositSuccess();
-            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            if (currentAccController.TryDeposit(depositAmount))
+            {
+                DepositSuccess();
+                Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            }
+            else
+            {
+                DepositFail();
+                Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            }
         }
         else
         {
-            DepositFail();
-            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            Console.WriteLine("Invalid account number.");
         }
     }
 
@@ -60,34 +67,41 @@ public class AccountView
 
     public void AttemptWithdraw()
     {
-        Guid accountNumber = _userInputController.GetAccountNumber("your");
-        AccountController currentAccController = new AccountController(accountNumber);
-        
-        if (!currentAccController.IsValidAccount())
+        if (_userInputController.TryGetAccountNumber("your", out Guid id))
         {
-            Console.WriteLine("Invalid account number");
-            return;
-        }
+            Guid accountNumber = id;
+            AccountController currentAccController = new AccountController(accountNumber);
+            
+            if (!currentAccController.IsValidAccount())
+            {
+                Console.WriteLine("Invalid account number");
+                return;
+            }
         
-        decimal withdrawAmount = _userInputController.GetAmount();
+            decimal withdrawAmount = _userInputController.GetAmount();
         
-        if (withdrawAmount == 0)
-        {
-            Console.WriteLine("Transaction cancelled.");
-            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            if (withdrawAmount == 0)
+            {
+                Console.WriteLine("Transaction cancelled.");
+                Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
 
-            return;
-        }
+                return;
+            }
         
-        if (currentAccController.TryWithdraw(withdrawAmount))
-        {
-            WithdrawSuccess();
-            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            if (currentAccController.TryWithdraw(withdrawAmount))
+            {
+                WithdrawSuccess();
+                Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            }
+            else
+            {
+                WithdrawFail();
+                Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            }
         }
         else
         {
-            WithdrawFail();
-            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+            Console.WriteLine("Invalid account number.");
         }
     }
 
@@ -103,40 +117,60 @@ public class AccountView
 
     public void AttemptTransfer()
     {
-        Guid senderAccNum = _userInputController.GetAccountNumber("sender's");
-        AccountController senderAccController = new AccountController(senderAccNum);
+        if (_userInputController.TryGetAccountNumber("sender's", out Guid senderID))
+        {
+            Guid senderAccNum = senderID;
+            AccountController senderAccController = new AccountController(senderAccNum);
 
-        if (!senderAccController.IsValidAccount())
-        {
-            Console.WriteLine("Invalid account number");
-            return;
-        }
-        
-        Guid receiverAccNum = _userInputController.GetAccountNumber("receiver's");
-        AccountController reveiverAccController = new AccountController(senderAccNum);
+            if (!senderAccController.IsValidAccount())
+            {
+                Console.WriteLine("Invalid account number");
+                return;
+            }
 
-        if (!reveiverAccController.IsValidAccount())
-        {
-            Console.WriteLine("Invalid account number");
-            return;
-        }
-        
-        decimal amount = _userInputController.GetAmount();
-        
-        if (amount == 0)
-        {
-            Console.WriteLine("Transaction cancelled.");
+            if (_userInputController.TryGetAccountNumber("receiver's", out Guid receiverID))
+            {
+                Guid receiverAccNum = receiverID;
+                AccountController reveiverAccController = new AccountController(senderAccNum);
 
-            return;
-        }
+                if (!reveiverAccController.IsValidAccount())
+                {
+                    Console.WriteLine("Invalid account number");
+                    return;
+                }
+
+                if (receiverAccNum == senderAccNum)
+                {
+                    Console.WriteLine("Invalid transaction.");
+                    return;
+                }
+                decimal amount = _userInputController.GetAmount();
         
-        if (senderAccController.TryTransferMoney(senderAccNum, receiverAccNum, amount))
-        {
-            TransferSuccess();
+                if (amount == 0)
+                {
+                    Console.WriteLine("Transaction cancelled.");
+
+                    return;
+                }
+        
+                if (senderAccController.TryTransferMoney(senderAccNum, receiverAccNum, amount))
+                {
+                    TransferSuccess();
+                }
+                else
+                {
+                    TransferFail();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid account number");
+                return;
+            }
         }
         else
         {
-            TransferFail();
+            Console.WriteLine("Invalid account number");
         }
     }
 
@@ -152,15 +186,22 @@ public class AccountView
 
     public void DisplayBalance()
     {
-        Guid accountNumber = _userInputController.GetAccountNumber("your");
-        AccountController currentAccController = new AccountController(accountNumber);
+        if (_userInputController.TryGetAccountNumber("your", out Guid id))
+        {
+            Guid accountNumber = id;
+            AccountController currentAccController = new AccountController(accountNumber);
         
-        if (!currentAccController.IsValidAccount())
+            if (!currentAccController.IsValidAccount())
+            {
+                Console.WriteLine("Invalid account number.");
+                return;
+            }
+        
+            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+        }
+        else
         {
             Console.WriteLine("Invalid account number.");
-            return;
         }
-        
-        Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
     }
 }

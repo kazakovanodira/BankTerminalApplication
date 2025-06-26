@@ -34,15 +34,19 @@ public class UserInputController
         }
     }
 
-    public Guid GetAccountNumber(string owner)
+    public bool TryGetAccountNumber(string owner, out Guid accountNumber)
     {
         Guid id;
         Console.WriteLine($"Enter {owner} account number: ");
-        string accountNumber = Console.ReadLine();
-        if (Guid.TryParse(accountNumber, out id))
+        string input = Console.ReadLine();
+        
+        if (Guid.TryParse(input, out id))
         {
-            return id;
+            accountNumber = id;
+            return true;
         }
-        return Guid.Empty;
+        accountNumber = default;
+
+        return false;
     }
 }

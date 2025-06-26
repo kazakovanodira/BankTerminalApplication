@@ -6,8 +6,8 @@ class Program
 {
     public static void Main(String[] args)
     {
-        AccountView accountView  = new AccountView();
-        BankView bankView = new BankView();
+        var accountView  = new AccountView();
+        var bankView = new BankView();
         
         char userChoice;
         

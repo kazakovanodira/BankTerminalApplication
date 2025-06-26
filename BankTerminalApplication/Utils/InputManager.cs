@@ -7,9 +7,9 @@ public class InputManager
         while (true)
         {
             Console.Write("Enter transaction amount: ");
-            string? input = Console.ReadLine();
+            var input = Console.ReadLine();
 
-            if (decimal.TryParse(input, out decimal amount) && amount >= 0)
+            if (decimal.TryParse(input, out var amount) && amount >= 0)
             {
                 return amount;
             }
@@ -23,7 +23,7 @@ public class InputManager
         while (true)
         {
             Console.Write("Enter account holder's name: ");
-            string? name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(name))
             {
@@ -36,11 +36,10 @@ public class InputManager
 
     public bool TryGetAccountNumber(string owner, out Guid accountNumber)
     {
-        Guid id;
         Console.WriteLine($"Enter {owner} account number: ");
-        string input = Console.ReadLine();
+        var input = Console.ReadLine();
         
-        if (Guid.TryParse(input, out id))
+        if (Guid.TryParse(input, out var id))
         {
             accountNumber = id;
             return true;

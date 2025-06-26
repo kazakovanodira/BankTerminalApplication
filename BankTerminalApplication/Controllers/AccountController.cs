@@ -47,8 +47,8 @@ public class AccountController
 
     public bool TryTransferMoney(Guid senderAccNum, Guid receiverAccNum, decimal amount)
     {
-        Account? sender = _bankController.GetAccount(senderAccNum);
-        Account? receiver = _bankController.GetAccount(receiverAccNum);
+        var sender = _bankController.GetAccount(senderAccNum);
+        var receiver = _bankController.GetAccount(receiverAccNum);
         if (sender == null || receiver == null || amount <= 0 || sender.Balance < amount)
         {
             return false;

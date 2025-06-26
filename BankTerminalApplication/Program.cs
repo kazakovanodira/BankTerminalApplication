@@ -13,7 +13,7 @@ class Program
         
         do
         {
-            userChoice = bankView.PickTransaction();
+            userChoice = accountView.PickTransaction();
             switch (userChoice)
             {
                 case 'a':

@@ -25,7 +25,10 @@ public class AccountController
 
     public bool TryDeposit(decimal amount)
     {
-        if (_account == null || amount <= 0) return false;
+        if (_account == null || amount < 0)
+        {
+            return false;
+        }
         _account.Balance += amount;
         
         return true;
@@ -33,7 +36,7 @@ public class AccountController
 
     public bool TryWithdraw(decimal amount)
     {
-        if (_account == null || amount <= 0 || _account.Balance < amount) return false;
+        if (_account == null || amount < 0 || _account.Balance < amount) return false;
         _account.Balance -= amount;
         
         return true;

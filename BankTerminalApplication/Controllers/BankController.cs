@@ -5,7 +5,7 @@ namespace BankTerminalApplication.Controllers;
 
 public class BankController: Singleton<BankController>
 {
-    private readonly Bank _bank =  new();
+    private Bank _bank =  new();
 
     public BankController() { }
 
@@ -20,7 +20,11 @@ public class BankController: Singleton<BankController>
 
     public Account? GetAccount(Guid id)
     {
-        if (_bank.Accounts.ContainsKey(id)) return _bank.Accounts[id];
-        else return null;
+        if (_bank.Accounts.TryGetValue(id, out var account))
+        {
+            return account;
+        }
+        
+        return null;
     }
 }

@@ -5,14 +5,6 @@ namespace BankTerminalApplication.Views;
 public class BankView
 {
     UserInputController _userInputController = new();
-    
-    public char PickTransaction()
-    {
-        Console.WriteLine("Menu:\n     a. Create Account\n     b. Deposit\n     c. Withdraw\n     d. Check Balance\n     e. Transfer Funds\n     f. Exit\n \n"); 
-        char userChoice = Console.ReadKey().KeyChar;
-        Console.WriteLine();
-        return userChoice;
-    }
 
     public void CreateAccount()
     {

@@ -7,6 +7,14 @@ public class AccountView
 {
     UserInputController _userInputController = new();
     
+    public char PickTransaction()
+    {
+        Console.WriteLine("Menu:\n     a. Create Account\n     b. Deposit\n     c. Withdraw\n     d. Check Balance\n     e. Transfer Funds\n     f. Exit\n \n"); 
+        char userChoice = Console.ReadKey().KeyChar;
+        Console.WriteLine();
+        return userChoice;
+    }
+    
     public void AttemptDeposit()
     {
         Guid accountNumber = _userInputController.GetAccountNumber("your");
@@ -19,9 +27,25 @@ public class AccountView
         }
         
         decimal depositAmount = _userInputController.GetAmount();
-        if (currentAccController.TryDeposit(depositAmount)) DepositSuccess();
-        else DepositFail();
+
+        if (depositAmount == 0)
+        {
+            Console.WriteLine("Transaction cancelled.");
+            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+
+            return;
+        }
         
+        if (currentAccController.TryDeposit(depositAmount))
+        {
+            DepositSuccess();
+            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+        }
+        else
+        {
+            DepositFail();
+            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+        }
     }
 
     public void DepositSuccess()
@@ -46,8 +70,25 @@ public class AccountView
         }
         
         decimal withdrawAmount = _userInputController.GetAmount();
-        if (currentAccController.TryWithdraw(withdrawAmount)) WithdrawSuccess();
-        else WithdrawFail();
+        
+        if (withdrawAmount == 0)
+        {
+            Console.WriteLine("Transaction cancelled.");
+            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+
+            return;
+        }
+        
+        if (currentAccController.TryWithdraw(withdrawAmount))
+        {
+            WithdrawSuccess();
+            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+        }
+        else
+        {
+            WithdrawFail();
+            Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
+        }
     }
 
     public void WithdrawSuccess()
@@ -81,8 +122,22 @@ public class AccountView
         }
         
         decimal amount = _userInputController.GetAmount();
-        if (senderAccController.TryTransferMoney(senderAccNum, receiverAccNum, amount)) TransferSuccess();
-        else TransferFail();
+        
+        if (amount == 0)
+        {
+            Console.WriteLine("Transaction cancelled.");
+
+            return;
+        }
+        
+        if (senderAccController.TryTransferMoney(senderAccNum, receiverAccNum, amount))
+        {
+            TransferSuccess();
+        }
+        else
+        {
+            TransferFail();
+        }
     }
 
     public void TransferSuccess()
@@ -102,10 +157,10 @@ public class AccountView
         
         if (!currentAccController.IsValidAccount())
         {
-            Console.WriteLine("Invalid account number");
+            Console.WriteLine("Invalid account number.");
             return;
         }
         
-        Console.WriteLine($"Your current balance is: {currentAccController.GetBalance()}");
+        Console.WriteLine($"Your current balance is: ${currentAccController.GetBalance()}");
     }
 }

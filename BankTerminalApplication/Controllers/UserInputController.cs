@@ -9,7 +9,7 @@ public class UserInputController
             Console.Write("Enter transaction amount: ");
             string? input = Console.ReadLine();
 
-            if (decimal.TryParse(input, out decimal amount) && amount > 0)
+            if (decimal.TryParse(input, out decimal amount) && amount >= 0)
             {
                 return amount;
             }
@@ -40,8 +40,9 @@ public class UserInputController
         Console.WriteLine($"Enter {owner} account number: ");
         string accountNumber = Console.ReadLine();
         if (Guid.TryParse(accountNumber, out id))
+        {
             return id;
-        Console.WriteLine("Invalid GUID format.");
+        }
         return Guid.Empty;
     }
 }

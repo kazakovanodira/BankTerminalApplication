@@ -1,13 +1,14 @@
 using System.Runtime.CompilerServices;
 using BankTerminalApplication.Controllers;
 using BankTerminalApplication.Utils;
+using BankTerminalApplication.Models;
 
 namespace BankTerminalApplication.Views;
 
 public class AccountView
 {
     private readonly InputManager _inputManager = new();
-
+    
     public char PickTransaction()
     {
         Console.WriteLine("Menu:\n     a. Create Account\n     b. Deposit\n     c. Withdraw\n     d. Check Balance\n     e. Transfer Funds\n     f. Exit\n \n"); 
@@ -16,12 +17,12 @@ public class AccountView
         return userChoice;
     }
     
-    public void AttemptDeposit()
+    public void AttemptDeposit(BankController bankController)
     {
         if (_inputManager.TryGetAccountNumber(AccountOwner.Your, out var id))
         {
             var accountNumber = id;
-            var currentAccController = new AccountController(accountNumber);
+            var currentAccController = new AccountController(accountNumber, bankController);
             
             if (!currentAccController.IsValidAccount())
             {
@@ -60,12 +61,12 @@ public class AccountView
     
     public void DepositFail() => Console.WriteLine("Money failed to deposit.");
 
-    public void AttemptWithdraw()
+    public void AttemptWithdraw(BankController bankController)
     {
         if (_inputManager.TryGetAccountNumber(AccountOwner.Your, out var id))
         {
             var accountNumber = id;
-            var currentAccController = new AccountController(accountNumber);
+            var currentAccController = new AccountController(accountNumber, bankController);
             
             if (!currentAccController.IsValidAccount())
             {
@@ -104,12 +105,12 @@ public class AccountView
 
     public void WithdrawFail() => Console.WriteLine("Money failed to withdraw.");
     
-    public void AttemptTransfer()
+    public void AttemptTransfer(BankController bankController)
     {
         if (_inputManager.TryGetAccountNumber(AccountOwner.Sender, out var senderID))
         {
             var senderAccNum = senderID;
-            var senderAccController = new AccountController(senderAccNum);
+            var senderAccController = new AccountController(senderAccNum, bankController);
 
             if (!senderAccController.IsValidAccount())
             {
@@ -120,7 +121,7 @@ public class AccountView
             if (_inputManager.TryGetAccountNumber(AccountOwner.Receiver, out var receiverID))
             {
                 var receiverAccNum = receiverID;
-                var reveiverAccController = new AccountController(senderAccNum);
+                var reveiverAccController = new AccountController(senderAccNum, bankController);
 
                 if (!reveiverAccController.IsValidAccount())
                 {
@@ -167,12 +168,12 @@ public class AccountView
 
     public void TransferFail() => Console.WriteLine("Money failed to transfer.");
 
-    public void DisplayBalance()
+    public void DisplayBalance(BankController bankController)
     {
         if (_inputManager.TryGetAccountNumber(AccountOwner.Your, out var id))
         {
             var accountNumber = id;
-            var currentAccController = new AccountController(accountNumber);
+            var currentAccController = new AccountController(accountNumber, bankController);
         
             if (!currentAccController.IsValidAccount())
             {

@@ -3,12 +3,10 @@ using BankTerminalApplication.Utils;
 
 namespace BankTerminalApplication.Controllers;
 
-public class BankController: Singleton<BankController>
+public class BankController
 {
-    private readonly Bank _bank =  new();
-
-    public BankController() { }
-
+    private readonly Bank _bank = new();
+    
     public Guid CreateNewAccount(string name)
     {
         var id = Guid.NewGuid();

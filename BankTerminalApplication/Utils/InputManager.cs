@@ -1,5 +1,5 @@
-using BankTerminalApplication;
-using BankTerminalApplication.Views;
+using BankTerminalApplication.Models;
+using System.Text.RegularExpressions;
 
 namespace BankTerminalApplication.Utils;
 
@@ -11,13 +11,16 @@ public class InputManager
         {
             Console.Write("Enter transaction amount: ");
             var input = Console.ReadLine();
-
-            if (decimal.TryParse(input, out var amount) && amount >= 0)
+            Regex regex = new Regex(@"^\d+\.\d{2}$"); 
+            
+            if (decimal.TryParse(input, out var amount) 
+                && regex.IsMatch(input)
+                && amount >= 0)
             {
                 return amount;
             }
 
-            Console.WriteLine("Invalid amount. Please enter a valid positive number.");
+            Console.WriteLine("Invalid amount. Please enter a valid positive amount.");
         }
     }
 

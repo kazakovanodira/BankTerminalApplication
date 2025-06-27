@@ -7,9 +7,9 @@ public class AccountController
     private readonly BankController _bankController;
     private readonly Account? _account;
 
-    public AccountController(Guid id)
+    public AccountController(Guid id, BankController bankController)
     {
-        _bankController = BankController.Instance;
+        _bankController = bankController;
         _account = _bankController.GetAccount(id);
     }
     

@@ -1,21 +1,18 @@
-﻿using BankTerminalApplication.Views;
+﻿using System.Security.Cryptography.X509Certificates;
+using BankTerminalApplication.Controllers;
+using BankTerminalApplication.Views;
+using BankTerminalApplication.Models;
+
 
 namespace BankTerminalApplication;
-
-public enum AccountOwner
-{
-    Your,
-    Sender,
-    Receiver
-};
-
 
 class Program
 {
     public static void Main(String[] args)
     {
+        BankController  bankController = new BankController();
         var accountView  = new AccountView();
-        var bankView = new BankView();
+        var bankView = new BankView(bankController);
         
         char userChoice;
         
@@ -28,16 +25,16 @@ class Program
                     bankView.CreateAccount();
                     break;
                 case 'b':
-                    accountView.AttemptDeposit();
+                    accountView.AttemptDeposit(bankController);
                     break;
                 case 'c':
-                    accountView.AttemptWithdraw();
+                    accountView.AttemptWithdraw(bankController);
                     break;
                 case 'd':
-                    accountView.DisplayBalance();
+                    accountView.DisplayBalance(bankController);
                     break;
                 case 'e':
-                    accountView.AttemptTransfer();
+                    accountView.AttemptTransfer(bankController);
                     break;
                 case 'f':
                     Console.WriteLine("Exiting the program.");

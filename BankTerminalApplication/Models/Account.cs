@@ -1,7 +1,15 @@
-namespace BankTerminalApplication.Models;
-
-public class Account
+namespace BankTerminalApplication.Models
 {
-    public string Name { get; set; }
-    public decimal Balance { get; set; }
+    public enum AccountOwner
+    {
+        Your,
+        Sender,
+        Receiver
+    };
+
+    public class Account
+    {
+        public string Name { get; set; }
+        public decimal Balance { get; set; }
+    }
 }
